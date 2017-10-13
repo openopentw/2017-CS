@@ -6,10 +6,16 @@
 
 ## write-up
 
-`gothijack` 這支程式一共會讀三次資料，第一次會讀 48 個 char 到固定位置的 global buffer；第二次會讀 24 個 char ，並轉成 16 進位的數字；第三次會讀 8 個 char 到第二次讀的 16 進位的數字代表的位址。
+`gothijack` 這支程式一共會讀三次 input ，而且沒有開啟 `NX` 保護機制。
 
-但是在 `check()` 裡面，他是用 `for` 迴圈一一檢查表格裡面 index 小於 `strlen` 的元素是不是字母或數字。
+第一次讀 input 的時候，程式會使用 `read()` 固定讀 48 個 char 到一個 global variable ，但是在 `check()` 的時候，卻只檢查表格裡面 index 小於 `strlen()` 的元素是不是字母或數字。這代表 `check()` 在檢查到 `'\0'` 之後就會停下來了，而不管 `'\0'` 後面讀入的其他 char。
 
-所以我就在第一次給 input 的時候直接給他 `'\0'` ，接下來再給開 `/bin/sh` 的 shellcode。這樣一來程式讀到 `'\0'`  就會停下來，而不會再往下檢查 shellcode 了。
+所以我就在第一次要 input 的時候先給他 `'\0'` ，接下來再給開 `/bin/sh` 的 shell code。這樣一來程式就不會檢查到 `'\0'`  後面的不是字母或數字的 shell code 了。
 
-第二次 input 的時候我就給 `puts()` 的 GOT 的位置，第三次 input 我就給我寫入的 shellcode 的位置。這樣就可以在最後一次 `puts("done!")` 的時候改執行 `execve(/bin/sh)` 了。
+接下來第二次 input 的時候就給他 GOT 裡面 `puts()` 的位置，第三次 input 的時候就可以給之前寫入的 shell code 的位置。
+
+這樣就可以把 GOT 裡面 `puts()` 的位置改寫成之前寫入的 shell code 的位置，也就是說，在最後執行 `puts("done!")` 的時候，就會變成執行 `execve("/bin/sh")` ，就可以取得 shell 了。
+
+## script
+
+- 可以取得 shell 的 python3 檔案：`gothijack.py`
