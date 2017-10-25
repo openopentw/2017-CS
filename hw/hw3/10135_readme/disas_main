@@ -1,0 +1,22 @@
+Dump of assembler code for function main:
+0x00000000004005f6 <+0>:     push   rbp
+0x00000000004005f7 <+1>:     mov    rbp,rsp
+0x00000000004005fa <+4>:     sub    rsp,0x20
+0x00000000004005fe <+8>:     mov    rax,QWORD PTR [rip+0x200a43]        # 0x601048 <stdout@@GLIBC_2.2.5>
+0x0000000000400605 <+15>:    mov    ecx,0x0
+0x000000000040060a <+20>:    mov    edx,0x2
+0x000000000040060f <+25>:    mov    esi,0x0
+0x0000000000400614 <+30>:    mov    rdi,rax
+0x0000000000400617 <+33>:    call   0x4004e0 <setvbuf@plt>
+0x000000000040061c <+38>:    mov    edi,0x4006d4
+0x0000000000400621 <+43>:    mov    eax,0x0
+0x0000000000400626 <+48>:    call   0x4004b0 <printf@plt>
+0x000000000040062b <+53>:    lea    rax,[rbp-0x20]
+0x000000000040062f <+57>:    mov    edx,0x30
+0x0000000000400634 <+62>:    mov    rsi,rax
+0x0000000000400637 <+65>:    mov    edi,0x0
+0x000000000040063c <+70>:    call   0x4004c0 <read@plt>
+0x0000000000400641 <+75>:    mov    eax,0x0
+0x0000000000400646 <+80>:    leave
+0x0000000000400647 <+81>:    ret
+End of assembler dump.
