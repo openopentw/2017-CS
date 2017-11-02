@@ -1,0 +1,38 @@
+Dump of assembler code for function read_input:
+0x000000000000093a <+0>:     push   rbp
+0x000000000000093b <+1>:     mov    rbp,rsp
+0x000000000000093e <+4>:     sub    rsp,0x20
+0x0000000000000942 <+8>:     mov    QWORD PTR [rbp-0x18],rdi
+0x0000000000000946 <+12>:    mov    DWORD PTR [rbp-0x1c],esi
+0x0000000000000949 <+15>:    mov    ecx,DWORD PTR [rbp-0x1c]
+0x000000000000094c <+18>:    mov    edx,DWORD PTR [rbp-0x1c]
+0x000000000000094f <+21>:    mov    rax,QWORD PTR [rbp-0x18]
+0x0000000000000953 <+25>:    mov    rsi,rax
+0x0000000000000956 <+28>:    mov    edi,0x0
+0x000000000000095b <+33>:    mov    eax,0x0
+0x0000000000000960 <+38>:    call   0x7e8
+0x0000000000000965 <+43>:    mov    DWORD PTR [rbp-0x4],eax
+0x0000000000000968 <+46>:    cmp    DWORD PTR [rbp-0x4],0x0
+0x000000000000096c <+50>:    jg     0x984 <read_input+74>
+0x000000000000096e <+52>:    lea    rdi,[rip+0x18f]        # 0xb04
+0x0000000000000975 <+59>:    call   0x7f0
+0x000000000000097a <+64>:    mov    edi,0x1
+0x000000000000097f <+69>:    call   0x7e0
+0x0000000000000984 <+74>:    mov    eax,DWORD PTR [rbp-0x4]
+0x0000000000000987 <+77>:    cdqe
+0x0000000000000989 <+79>:    lea    rdx,[rax-0x1]
+0x000000000000098d <+83>:    mov    rax,QWORD PTR [rbp-0x18]
+0x0000000000000991 <+87>:    add    rax,rdx
+0x0000000000000994 <+90>:    movzx  eax,BYTE PTR [rax]
+0x0000000000000997 <+93>:    cmp    al,0xa
+0x0000000000000999 <+95>:    jne    0x9ae <read_input+116>
+0x000000000000099b <+97>:    mov    eax,DWORD PTR [rbp-0x4]
+0x000000000000099e <+100>:   cdqe
+0x00000000000009a0 <+102>:   lea    rdx,[rax-0x1]
+0x00000000000009a4 <+106>:   mov    rax,QWORD PTR [rbp-0x18]
+0x00000000000009a8 <+110>:   add    rax,rdx
+0x00000000000009ab <+113>:   mov    BYTE PTR [rax],0x0
+0x00000000000009ae <+116>:   nop
+0x00000000000009af <+117>:   leave
+0x00000000000009b0 <+118>:   ret
+End of assembler dump.

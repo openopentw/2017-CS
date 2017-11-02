@@ -1,0 +1,45 @@
+Dump of assembler code for function main:
+0x00000000000009b1 <+0>:     push   rbp
+0x00000000000009b2 <+1>:     mov    rbp,rsp
+0x00000000000009b5 <+4>:     sub    rsp,0x10
+0x00000000000009b9 <+8>:     mov    rax,QWORD PTR [rip+0x2005f8]        # 0x200fb8
+0x00000000000009c0 <+15>:    mov    rax,QWORD PTR [rax]
+0x00000000000009c3 <+18>:    mov    ecx,0x0
+0x00000000000009c8 <+23>:    mov    edx,0x2
+0x00000000000009cd <+28>:    mov    esi,0x0
+0x00000000000009d2 <+33>:    mov    rdi,rax
+0x00000000000009d5 <+36>:    call   0x818
+0x00000000000009da <+41>:    mov    rax,QWORD PTR [rip+0x2005b7]        # 0x200f98
+0x00000000000009e1 <+48>:    mov    rax,QWORD PTR [rax]
+0x00000000000009e4 <+51>:    mov    ecx,0x0
+0x00000000000009e9 <+56>:    mov    edx,0x2
+0x00000000000009ee <+61>:    mov    esi,0x0
+0x00000000000009f3 <+66>:    mov    rdi,rax
+0x00000000000009f6 <+69>:    call   0x818
+0x00000000000009fb <+74>:    mov    rax,QWORD PTR [rip+0x2005f6]        # 0x200ff8
+0x0000000000000a02 <+81>:    mov    rax,QWORD PTR [rax]
+0x0000000000000a05 <+84>:    mov    ecx,0x0
+0x0000000000000a0a <+89>:    mov    edx,0x2
+0x0000000000000a0f <+94>:    mov    esi,0x0
+0x0000000000000a14 <+99>:    mov    rdi,rax
+0x0000000000000a17 <+102>:   call   0x818
+0x0000000000000a1c <+107>:   mov    DWORD PTR [rbp-0x4],0x4
+0x0000000000000a23 <+114>:   lea    rdi,[rip+0xe5]        # 0xb0f
+0x0000000000000a2a <+121>:   mov    eax,0x0
+0x0000000000000a2f <+126>:   call   0x7f8
+0x0000000000000a34 <+131>:   mov    esi,0x10
+0x0000000000000a39 <+136>:   lea    rax,[rip+0x2005e0]        # 0x201020 <buf>
+0x0000000000000a40 <+143>:   mov    rdi,rax
+0x0000000000000a43 <+146>:   call   0x93a <read_input>
+0x0000000000000a48 <+151>:   lea    rax,[rip+0x2005d1]        # 0x201020 <buf>
+0x0000000000000a4f <+158>:   mov    rdi,rax
+0x0000000000000a52 <+161>:   mov    eax,0x0
+0x0000000000000a57 <+166>:   call   0x7f8
+0x0000000000000a5c <+171>:   lea    rdi,[rip+0xb3]        # 0xb16
+0x0000000000000a63 <+178>:   call   0x7f0
+0x0000000000000a68 <+183>:   mov    eax,DWORD PTR [rbp-0x4]
+0x0000000000000a6b <+186>:   mov    edi,eax
+0x0000000000000a6d <+188>:   call   0x800
+0x0000000000000a72 <+193>:   sub    DWORD PTR [rbp-0x4],0x1
+0x0000000000000a76 <+197>:   jmp    0xa23 <main+114>
+End of assembler dump.
