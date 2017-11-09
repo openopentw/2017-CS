@@ -1,3 +1,2 @@
-break *printf+160
-break *do_system+1140
+break *main+166
 

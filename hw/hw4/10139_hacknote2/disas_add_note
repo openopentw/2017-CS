@@ -1,0 +1,100 @@
+Dump of assembler code for function add_note:
+0x00000000004008a5 <+0>:     push   rbp
+0x00000000004008a6 <+1>:     mov    rbp,rsp
+0x00000000004008a9 <+4>:     push   rbx
+0x00000000004008aa <+5>:     sub    rsp,0x28
+0x00000000004008ae <+9>:     mov    rax,QWORD PTR fs:0x28
+0x00000000004008b7 <+18>:    mov    QWORD PTR [rbp-0x18],rax
+0x00000000004008bb <+22>:    xor    eax,eax
+0x00000000004008bd <+24>:    mov    eax,DWORD PTR [rip+0x2017f9]        # 0x6020bc <count>
+0x00000000004008c3 <+30>:    cmp    eax,0x5
+0x00000000004008c6 <+33>:    jle    0x4008d7 <add_note+50>
+0x00000000004008c8 <+35>:    mov    edi,0x400da4
+0x00000000004008cd <+40>:    call   0x4006e0 <puts@plt>
+0x00000000004008d2 <+45>:    jmp    0x400a25 <add_note+384>
+0x00000000004008d7 <+50>:    mov    i_stack,0x0
+0x00000000004008de <+57>:    jmp    0x400a1b <add_note+374>
+0x00000000004008e3 <+62>:    mov    eax,i_stack
+0x00000000004008e6 <+65>:    cdqe
+0x00000000004008e8 <+67>:    mov    rax,QWORD PTR [rax*8+0x6020c0]
+0x00000000004008f0 <+75>:    test   rax,rax
+0x00000000004008f3 <+78>:    jne    0x400a17 <add_note+370>
+0x00000000004008f9 <+84>:    mov    edi,0x10
+0x00000000004008fe <+89>:    call   0x400740 <malloc@plt>
+0x0000000000400903 <+94>:    mov    rdx,rax
+0x0000000000400906 <+97>:    mov    eax,i_stack
+0x0000000000400909 <+100>:   cdqe
+0x000000000040090b <+102>:   mov    QWORD PTR [rax*8+0x6020c0],rdx
+0x0000000000400913 <+110>:   mov    eax,i_stack
+0x0000000000400916 <+113>:   cdqe
+0x0000000000400918 <+115>:   mov    rax,QWORD PTR [rax*8+0x6020c0]
+0x0000000000400920 <+123>:   test   rax,rax
+0x0000000000400923 <+126>:   jne    0x400939 <add_note+148>
+0x0000000000400925 <+128>:   mov    edi,0x400da9
+0x000000000040092a <+133>:   call   0x4006e0 <puts@plt>
+0x000000000040092f <+138>:   mov    edi,0xffffffff
+0x0000000000400934 <+143>:   call   0x400770 <exit@plt>
+0x0000000000400939 <+148>:   mov    eax,i_stack
+0x000000000040093c <+151>:   cdqe
+0x000000000040093e <+153>:   mov    rax,QWORD PTR [rax*8+0x6020c0]
+0x0000000000400946 <+161>:   mov    QWORD PTR [rax],0x400886
+0x000000000040094d <+168>:   mov    edi,0x400db6
+0x0000000000400952 <+173>:   mov    eax,0x0
+0x0000000000400957 <+178>:   call   0x400700 <printf@plt>
+0x000000000040095c <+183>:   lea    rax,[rbp-0x20]
+0x0000000000400960 <+187>:   mov    edx,0x8
+0x0000000000400965 <+192>:   mov    rsi,rax
+0x0000000000400968 <+195>:   mov    edi,0x0
+0x000000000040096d <+200>:   call   0x400710 <read@plt>
+0x0000000000400972 <+205>:   lea    rax,[rbp-0x20]
+0x0000000000400976 <+209>:   mov    rdi,rax
+0x0000000000400979 <+212>:   call   0x400760 <atoi@plt>
+0x000000000040097e <+217>:   mov    DWORD PTR [rbp-0x24],eax
+0x0000000000400981 <+220>:   mov    eax,i_stack
+0x0000000000400984 <+223>:   cdqe
+0x0000000000400986 <+225>:   mov    rbx,QWORD PTR [rax*8+0x6020c0]
+0x000000000040098e <+233>:   mov    eax,DWORD PTR [rbp-0x24]
+0x0000000000400991 <+236>:   cdqe
+0x0000000000400993 <+238>:   mov    rdi,rax
+0x0000000000400996 <+241>:   call   0x400740 <malloc@plt>
+0x000000000040099b <+246>:   mov    QWORD PTR [rbx+0x8],rax
+0x000000000040099f <+250>:   mov    eax,i_stack
+0x00000000004009a2 <+253>:   cdqe
+0x00000000004009a4 <+255>:   mov    rax,QWORD PTR [rax*8+0x6020c0]
+0x00000000004009ac <+263>:   mov    rax,QWORD PTR [rax+0x8]
+0x00000000004009b0 <+267>:   test   rax,rax
+0x00000000004009b3 <+270>:   jne    0x4009c9 <add_note+292>
+0x00000000004009b5 <+272>:   mov    edi,0x400da9
+0x00000000004009ba <+277>:   call   0x4006e0 <puts@plt>
+0x00000000004009bf <+282>:   mov    edi,0xffffffff
+0x00000000004009c4 <+287>:   call   0x400770 <exit@plt>
+0x00000000004009c9 <+292>:   mov    edi,0x400dc2
+0x00000000004009ce <+297>:   mov    eax,0x0
+0x00000000004009d3 <+302>:   call   0x400700 <printf@plt>
+0x00000000004009d8 <+307>:   mov    eax,DWORD PTR [rbp-0x24]
+0x00000000004009db <+310>:   movsxd rdx,eax
+0x00000000004009de <+313>:   mov    eax,i_stack
+0x00000000004009e1 <+316>:   cdqe
+0x00000000004009e3 <+318>:   mov    rax,QWORD PTR [rax*8+0x6020c0]
+0x00000000004009eb <+326>:   mov    rax,QWORD PTR [rax+0x8]
+0x00000000004009ef <+330>:   mov    rsi,rax
+0x00000000004009f2 <+333>:   mov    edi,0x0
+0x00000000004009f7 <+338>:   call   0x400710 <read@plt>
+0x00000000004009fc <+343>:   mov    edi,0x400dcc
+0x0000000000400a01 <+348>:   call   0x4006e0 <puts@plt>
+0x0000000000400a06 <+353>:   mov    eax,DWORD PTR [rip+0x2016b0]        # 0x6020bc <count>
+0x0000000000400a0c <+359>:   add    eax,0x1
+0x0000000000400a0f <+362>:   mov    DWORD PTR [rip+0x2016a7],eax        # 0x6020bc <count>
+0x0000000000400a15 <+368>:   jmp    0x400a25 <add_note+384>
+0x0000000000400a17 <+370>:   add    i_stack,0x1
+0x0000000000400a1b <+374>:   cmp    i_stack,0x4
+0x0000000000400a1f <+378>:   jle    0x4008e3 <add_note+62>
+0x0000000000400a25 <+384>:   mov    rax,QWORD PTR [rbp-0x18]
+0x0000000000400a29 <+388>:   xor    rax,QWORD PTR fs:0x28
+0x0000000000400a32 <+397>:   je     0x400a39 <add_note+404>
+0x0000000000400a34 <+399>:   call   0x4006f0 <__stack_chk_fail@plt>
+0x0000000000400a39 <+404>:   add    rsp,0x28
+0x0000000000400a3d <+408>:   pop    rbx
+0x0000000000400a3e <+409>:   pop    rbp
+0x0000000000400a3f <+410>:   ret
+End of assembler dump.
