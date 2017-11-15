@@ -4,9 +4,11 @@ context.arch = 'amd64'
 
 host = '127.0.0.1'
 port = 8888
-host = 'csie.ctf.tw'
-port = 10138
+# host = 'csie.ctf.tw'
+# port = 10138
 r = remote(host, port)
+
+input('Enter')
 
 def show_item():
     r.recvuntil(':')
