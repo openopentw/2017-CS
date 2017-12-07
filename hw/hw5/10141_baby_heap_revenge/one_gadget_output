@@ -1,0 +1,15 @@
+0x45216	execve("/bin/sh", rsp+0x30, environ)
+constraints:
+  rax == NULL
+
+0x4526a	execve("/bin/sh", rsp+0x30, environ)
+constraints:
+  [rsp+0x30] == NULL
+
+0xf0274	execve("/bin/sh", rsp+0x50, environ)
+constraints:
+  [rsp+0x50] == NULL
+
+0xf1117	execve("/bin/sh", rsp+0x70, environ)
+constraints:
+  [rsp+0x70] == NULL
