@@ -54,6 +54,8 @@ assert ((unsigned long) (old_size) < (unsigned long) (nb + MINSIZE));
 
 接下來 allocate large bin 的 size 來讓`malloc`從 unsorted bin 裡面切一塊出來，就可以從這一塊 trunk 裡面 leak 出一些資訊。而因為切出來之後，會先把這一塊 chunk 放到 large bin，再分配出來，所以 chunk 裡面會記錄上、下一塊 large bin 的 address ，就可以推算出 top chunk 的 address。
 
+> 在這裡有時候 address 裡面有 null byte (`0x00`)，而 leak 到錯誤的 address。如果遇到這樣的情況，只要再執行一兩次一樣可以正確執行。
+
 ### leak 出 `libc` 和 `stack` 的 address
 
 算出 top chunk 的 address 之後，使用 house of force 移動到`bss`段的`stdin@@GLIBC`(`0x602030`) ，然後 print 出他的 address ，就可以推算出 `libc` 的位置。

