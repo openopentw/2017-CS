@@ -11,13 +11,10 @@ r = remote(host, port)
 # input('Press Enter to start.')
 
 def add_note(size, content, sendline=True):
-    # choice
     r.recvuntil(':')
     r.sendline(b'1')
-    # new size
     r.recvuntil(':')
     r.sendline(str(size).encode())
-    # content
     r.recvuntil(':')
     if sendline:
         r.sendline(content)
@@ -25,18 +22,14 @@ def add_note(size, content, sendline=True):
         r.send(content)
 
 def delete_note(index):
-    # choice
     r.recvuntil(':')
     r.sendline(b'2')
-    # index
     r.recvuntil(':')
     r.sendline(str(index).encode())
 
 def print_note(index):
-    # choice
     r.recvuntil(':')
     r.sendline(b'3')
-    # index
     r.recvuntil(':')
     r.sendline(str(index).encode())
 
