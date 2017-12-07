@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>QNAP Turbo NAS</title>
+<script type="text/javascript">
+<!--
+window.location = "/"
+//-->
+</script>
+<link rel="icon" href="../images/favicon.gif" type="image/gif" />
+<link rel="stylesheet" type="text/css"
+href="../libs/extjs-3.3.3/resources/css/ext-all-notheme.css" />
+<link rel="stylesheet" type="text/css"
+href="../libs/extjs-3.3.3/resources/css/qnap-default.css?_dc=1509480336" />
+<link rel="stylesheet" type="text/css"
+href="css/qos.css?_dc=1509480336" />
+<script type="text/javascript"
+src="../libs/extjs-3.3.3/adapter/ext/ext-base.js"></script>
+<script type="text/javascript" src="../libs/extjs-3.3.3/ext-all.js"></script>
+<script type="text/javascript" src="../ajax_obj/extjs/languages.js"></script>
+<script type="text/javascript" src="../libs/headjs-0.9/head.load.min.js"></script>
+<script type="text/javascript" src="../libs/AC_OETags.js"
+language="javascript"></script>
+<script type="text/javascript"
+src="../libs/qnap-lib.js?_dc=1509480336"></script>
+<script type="text/javascript" src="js/qos-lib.js"></script>
+<script type="text/javascript" src="langs/lang_ENG.js"></script>
+<script type="text/javascript" src="js/login.js?v=4.0"></script>
+
+
+<style type="text/css">
+<!--
+.qsmLogin {
+font-family: verdana;
+background-color: #101216;
+background-image: url('./images/theme1/login/bg-close.png');
+background-position: 50% 50%;
+color: #fff;
+}
+
+.bg-close {
+background-image: url('./images/theme1/login/bg-close.png');
+}
+
+.bg-open {
+background-image: url('./images/theme1/login/bg-open.png');
+}
+
+.qsmLogin .x-btn-group .x-btn-text {
+font-weight: bold;
+font-family: verdana;
+fotn-size: 10.5pt;
+color: #000;
+display: block;
+width: 100%;
+}
+
+.qsmLogin .splitLine {
+height: 2px;
+right: 0px;
+left: 0px;
+background-color: red;
+}
+
+.qsmLogin .serviceName {
+font-size: 36px;
+color: #b4e654;
+bottom: 25px;
+text-align: center;
+position: absolute;
+width: 100%;
+}
+
+.qsmLogin .separate {
+background-image: url('./images/theme1/login/separate line.png');
+position: absolute;
+width: 100%;
+height: 3px;
+}
+
+.qsmLogin .x-form-item {
+font-weight: bold;
+font-size: 10pt;
+}
+
+.qsmLogin .serviceBlockx {
+position: relative;
+width: 100%;
+height: 100%;
+}
+
+.qsmLogin .appIconx {
+bottom: -25px;
+position: relative;
+}
+
+.qsmLogin a {
+text-decoration: none;
+font-size: 9px;
+color: #fff;
+}
+
+.qsmLogin .x-btn-group-ml,.qsmLogin .x-btn-group-tl,.qsmLogin .x-btn-group-bl,.qsmLogin .x-btn-group-tr,.qsmLogin .x-btn-group-mr,.qsmLogin .x-btn-group-br,.qsmLogin .x-btn-group-tc,.qsmLogin .x-btn-group-bc,.qsmLogin .rightBtn .x-btn-bc,.qsmLogin .rightBtn .x-btn-bl,.qsmLogin .rightBtn .x-btn-br,.qsmLogin .rightBtn .x-btn-tc,.qsmLogin .rightBtn .x-btn-tl,.qsmLogin .rightBtn .x-btn-tr,.qsmLogin .rightBtn .x-btn-ml,.qsmLogin .rightBtn .x-btn-mr,.qsmLogin .leftBtn .x-btn-bc,.qsmLogin .leftBtn .x-btn-bl,.qsmLogin .leftBtn .x-btn-br,.qsmLogin .leftBtn .x-btn-tc,.qsmLogin .leftBtn .x-btn-tl,.qsmLogin .leftBtn .x-btn-tr,.qsmLogin .leftBtn .x-btn-ml,.qsmLogin .leftBtn .x-btn-mr
+{
+background: none;
+}
+
+.qsmLogin .x-btn-group {
+padding: 20px 20px;
+}
+
+.qsmLogin .x-btn-group .x-btn-click { //
+-webkit-box-shadow: 3px 3px 10px #EBFFEB, -3px -3px 10px #EBFFEB, 3px
+3px 20px #19FF1C, -3px -3px 20px #19FF1C;
+-webkit-box-shadow: 3px 3px 3px rgba(255, 255, 255, 0.5), -3px -3px 3px
+rgba(255, 255, 255, 0.5), 3px 3px 20px #19FF1C, -3px -3px 20px #19FF1C,
+3px 3px 5px #EBFFEB, -3px -3px 5px #EBFFEB;
+z-index: 2;
+}
+
+.qsmLogin .x-btn-group .serviceBlock .settingIcon {
+background-image: url('./images/theme1/login/settingMouseout.png');
+width: 29px;
+height: 25px;
+bottom: 5px;
+position: absolute;
+left: 120px;
+}
+
+.qsmLogin .x-btn-group .serviceBlock .over {
+background-image: url('./images/theme1/login/settingMouseover.png');
+}
+
+.qsmLogin .x-btn-group .lockIcon {
+background-image: url('./images/theme1/login/lock.png');
+width: 12px;
+height: 13px;
+bottom: 33px;
+position: absolute;
+left: 128px;
+}
+
+.qsmLogin .x-btn-group .x-btn-bl {
+width: 8px;
+height: 10px;
+background-image:
+url('./images/theme1/login/serviceIcon/icon-left-out.png');
+background-position: 0 bottom;
+}
+
+.qsmLogin .x-btn-group .x-btn-br {
+width: 4px;
+height: 10px;
+background-image:
+url('./images/theme1/login/serviceIcon/icon-right-out.png');
+background-position: right bottom;
+}
+
+.qsmLogin .x-btn-group .x-btn-bc {
+background-position: 0 bottom;
+background-image:
+url('./images/theme1/login/serviceIcon/icon-mid-out.png');
+}
+
+.qsmLogin .x-btn-group .x-btn-ml {
+width: 8px;
+height: 102px;
+background-position: 0 -7px;
+background-image:
+url('./images/theme1/login/serviceIcon/icon-left-out.png');
+}
+
+.qsmLogin .x-btn-group .x-btn-mr {
+width: 4px;
+height: 102px;
+background-position: right -7px;
+background-image:
+url('./images/theme1/login/serviceIcon/icon-right-out.png');
+}
+
+.qsmLogin .x-btn-group  .x-btn-mc {
+background-position: 0 -7px;
+width: 160px;
+height: 102px;
+background-image:
+url('./images/theme1/login/serviceIcon/icon-mid-out.png');
+}
+
+.qsmLogin .x-btn-group .x-btn-tl {
+width: 8px;
+height: 6px;
+background-position: 0 top;
+background-image:
+url('./images/theme1/login/serviceIcon/icon-left-out.png');
+background-position: 0 top;
+}
+
+.qsmLogin .x-btn-group .x-btn-tr {
+width: 4px;
+background-position: right top;
+background-image:
+url('./images/theme1/login/serviceIcon/icon-right-out.png');
+}
+
+.qsmLogin .x-btn-group .x-btn-tc {
+background-position: right top;
+background-image:
+url('./images/theme1/login/serviceIcon/icon-mid-out.png');
+}
+
+.qsmLogin .x-btn-group .x-btn-over .x-btn-tl,.qsmLogin .x-btn-group .x-btn-pressed .x-btn-tl
+{
+background-image:
+url('./images/theme1/login/serviceIcon/icon-left-over.png');
+}
+
+.qsmLogin .x-btn-group .x-btn-over  .x-btn-tr,.qsmLogin .x-btn-group .x-btn-pressed .x-btn-tr
+{
+background-image:
+url('./images/theme1/login/serviceIcon/icon-right-over.png');
+}
+
+.qsmLogin .x-btn-group .x-btn-over  .x-btn-tc,.qsmLogin .x-btn-group .x-btn-pressed  .x-btn-tc
+{
+background-image:
+url('./images/theme1/login/serviceIcon/icon-mid-over.png');
+}
+
+.qsmLogin .x-btn-group .x-btn-over .x-btn-ml,.qsmLogin .x-btn-group .x-btn-pressed  .x-btn-ml
+{
+background-image:
+url('./images/theme1/login/serviceIcon/icon-left-over.png');
+}
+
+.qsmLogin .x-btn-group .x-btn-over .x-btn-mr,.qsmLogin .x-btn-group .x-btn-pressed  .x-btn-mr
+{
+background-image:
+url('./images/theme1/login/serviceIcon/icon-right-over.png');
+}
+
+.qsmLogin .x-btn-group  .x-btn-over .x-btn-mc,.qsmLogin .x-btn-group .x-btn-pressed  .x-btn-mc
+{
+background-image:
+url('./images/theme1/login/serviceIcon/icon-mid-over.png');
+}
+
+.qsmLogin .x-btn-group .x-btn-over .x-btn-bl,.qsmLogin .x-btn-group .x-btn-pressed .x-btn-bl
+{
+background-image:
+url('./images/theme1/login/serviceIcon/icon-left-over.png');
+}
+
+.qsmLogin .x-btn-group .x-btn-over .x-btn-br,.qsmLogin .x-btn-group .x-btn-pressed .x-btn-br
+{
+background-image:
+url('./images/theme1/login/serviceIcon/icon-right-over.png');
+}
+
+.qsmLogin .x-btn-group .x-btn-over .x-btn-bc,.qsmLogin .x-btn-group .x-btn-pressed .x-btn-bc
+{
+background-image:
+url('./images/theme1/login/serviceIcon/icon-mid-over.png');
+}
+
+.qsmLogin .loginBtnBox {
+text-align: right;
+}
+
+.qsmLogin .leftBtn {
+right: 10px;
+position: absolute;
+top: 60px;
+}
+
+.qsmLogin .leftBtn .x-btn-mc {
+height: 41px;
+width: 41px;
+background-position: 50% 50%;
+background-repeat: no-repeat;
+background-image:
+url('./images/theme1/login/serviceIcon/left-button-mouseout.png');
+}
+
+.qsmLogin .leftBtn-over   .x-btn-mc {
+background-image:
+url('./images/theme1/login/serviceIcon/left-button-mouseover.png');
+}
+
+.qsmLogin .rightBtn {
+left: 10px;
+position: absolute;
+top: 60px;
+}
+
+.qsmLogin .rightBtn .x-btn-mc {
+height: 41px;
+width: 41px;
+background-position: 50% 50%;
+background-repeat: no-repeat;
+background-image:
+url('./images/theme1/login/serviceIcon/right-button-mouseout.png');
+}
+
+.qsmLogin .rightBtn-over  .x-btn-mc {
+background-image:
+url('./images/theme1/login/serviceIcon/right-button-mouseover.png');
+}
+
+.qsmLogin .loginBtnBox .loginBtn {
+cursor: pointer;
+font-weight: bold;
+font-size: 10pt;
+}
+
+.qsmLogin div {
+background-color: transparent;
+}
+
+.qsmLogin .ext-mb-text{
+color: #000;
+}
+.qsmLogin .x-window-header {
+background-color: #EAEAEA;
+}
+.qsmLogin .x-window-bc {
+background-color: #FFF;
+}
+.x-window .x-window-header,.x-panel-ghost .x-window-header{
+height:30px;
+}
+.x-window.AddClose .x-tool-close,.x-panel-ghost .x-tool-close{
+background-image:url(images/toolbar/icon_close_one.png);
+width:41px;
+height:21px;
+background-position:0 0;
+margin-right:0;
+}
+
+.qsmLogin .x-form-check-wrap {
+font-size: 11pt;
+font-weight: normal;
+}
+
+.topHead {
+background-image: url('./images/theme1/login/head.png');
+height: 12px;
+left: 0px;
+top: 0px;
+position: absolute;
+width: 100%;
+}
+
+.logo {
+background-image: url('./images/theme1/login/logo.png');
+background-repeat: no-repeat;
+height: 31px;
+width: 174px;
+position: absolute;
+right: 190px;
+bottom: 40px;
+}
+
+.qsmLogin .x-form-field {
+background-image: none;
+background-color: transparent;
+padding-left: 6px;
+border: none;
+}
+
+.qsmLogin .x-form-element .textInput {
+position: absolute;
+top: 0px;
+z-index: 1;
+}
+
+.qsmLogin   .password {
+padding-top: 10px;
+padding-bottom: 13px;
+}
+
+.qsmLogin .x-form-element .inputLeft {
+background-image: url('./images/theme1/login/left.png');
+height: 21px;
+width: 6px;
+width: 100%;
+z-index: 0;
+}
+
+.qsmLogin .x-form-element .inputCenter {
+background-image: url('./images/theme1/login/mid.png');
+height: 21px;
+width: 100%;
+}
+
+.qsmLogin .x-form-element .inputRight {
+display: block;
+background-image: url('./images/theme1/login/right.png');
+height: 21px;
+width: 6px;
+width: 100%;
+}
+
+/**
+serviceBlock
+**/
+.serviceDVList div {
+float: left;
+font-size: 10.5px;
+font-weight: bold;
+text-align: center;
+color: black;
+position: relative;
+/*height: 118px;*/
+}
+
+.serviceBlock {
+cursor: pointer;
+}
+
+.serviceDVList {
+padding-top: 36px;
+padding-bottom: 10px;
+}
+
+.serviceDVList .serviceBtn-left {
+height: 118px;
+width: 7px;
+background-image:
+url('./images/theme1/login/serviceIcon/icon-left-out.png');
+}
+
+.lightMask .serviceBtn-left {
+background-image:
+url('./images/theme1/login/serviceIcon/icon-left-over.png');
+}
+
+.serviceDVList .serviceBtn-center {
+width: 129px;
+height: 118px;
+background-image:
+url('./images/theme1/login/serviceIcon/icon-mid-out.png');
+}
+
+.lightMask .serviceBtn-center {
+background-image:
+url('./images/theme1/login/serviceIcon/icon-mid-over.png');
+}
+
+.serviceDVList .serviceBtn-right {
+height: 118px;
+width: 4px;
+background-image:
+url('./images/theme1/login/serviceIcon/icon-right-out.png');
+}
+
+.lightMask .serviceBtn-right {
+background-image:
+url('./images/theme1/login/serviceIcon/icon-right-over.png');
+}
+
+.serviceDVList .name {
+width: 129px;
+padding-top: 10px;
+display: block;
+float: none;
+top: 0px;
+position: absolute;
+}
+
+.serviceDVList .name-ie {
+position: static;
+}
+
+.serviceDVList .img {
+float: none;
+position: absolute;
+width: 129px;
+bottom: 18px;
+}
+
+.serviceDVList .img-ie {
+position: static;
+}
+
+.serviceDVList .settingIcon {
+background-image: url('./images/theme1/login/settingMouseout.png');
+width: 29px;
+height: 25px;
+bottom: 11px;
+position: absolute;
+right: 2px;
+}
+
+.serviceDVList .settingIcon-ie { /*position: static;*/
+}
+
+.serviceDVList .settingIcon-over {
+background-image: url('./images/theme1/login/settingMouseover.png');
+width: 29px;
+height: 25px;
+bottom: 11px;
+position: absolute;
+right: 2px;
+}
+
+.serviceDVList .settingIcon-over-ie { /*position: static;*/
+}
+
+.serviceDVList .lockIcon {
+background-image: url('./images/theme1/login/lock.png');
+width: 12px;
+height: 13px;
+bottom: 40px;
+position: absolute;
+right: 10px;
+}
+
+.serviceDVList .lockIcon { /*position: static;*/
+}
+
+.serviceDVList .lightBox {
+background-image:
+url('./images/theme1/login/serviceIcon/serviceMask.png');
+position: absolute;
+border-radius: 10px;
+box-shadow: 3px 3px 10px rgba(116, 192, 0, .5) inset, -3px -3px 10px
+rgba(116, 192, 0, .5) inset, 3px 3px 5px rgba(76, 135, 0, .5) inset,
+-3px -3px 5px rgba(76, 135, 0, .5) inset, 3px 3px 10px
+rgba(116, 192, 0, .5), -3px -3px 10px rgba(116, 192, 0, .5), 3px 3px
+5px rgba(76, 135, 0, .5), -3px -3px 5px rgba(76, 135, 0, .5)
+}
+
+.x-panel-body {
+background-color: transparent;
+border: none;
+}
+
+div.x-combo-list-item {
+color: #000;
+background-color: #fff;
+}
+-->
+</style>
+</head>
+
+<body id="qos-body" scroll="no" onSelectStart="event.returnValue=false">
+
+
+<script>
+var _S = {}
+//,_dc = '1509480336';
+, _dc = '';
+_S = _Q_STRINGS;
+QNAP.debugMode = true;
+
+Ext.ns('QNAP.QOS');
+
+QNAP.QOS.user = {
+account : '',
+sid : '',
+isAdminGroup : false,
+lang : '',
+shortcuts : '',
+quidk_set : 0
+}
+
+QNAP.QOS.config = {
+sitePath : '/cgi-bin/',
+rootUrl : location.protocol + '//' + location.hostname + (location.port === '' ? '' : ':' + location.port),
+defaultLang : 'ENG',
+defaultAdminShortcuts : 'systemPreferences,fileExplorer,systemLogs',
+defaultUserShortcuts : 'fileExplorer'
+};
+
+// include s_lang
+QNAP.QOS.user.lang = 'ENG';
+</script>
+
+</body>
+</html>
