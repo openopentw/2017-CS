@@ -1,3 +1,7 @@
+# ida
+*.i64
+*.idb
+
 # Gdb
 .gdb_history
 
