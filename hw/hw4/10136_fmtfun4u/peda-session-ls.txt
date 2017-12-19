@@ -1,5 +1,0 @@
-break *printf+160
-disable $bpnum
-break *do_system+1140
-disable $bpnum
-

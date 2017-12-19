@@ -1,8 +1,0 @@
-break *0x080485b7
-break *0x080485a3
-break *0x804859d
-break *0x804859f
-break *0x80485a3
-break *0x80485a8
-break *0x80485ad
-
