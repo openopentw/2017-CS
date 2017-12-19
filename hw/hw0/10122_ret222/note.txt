@@ -1,0 +1,4 @@
+0x7ffc3d94d5d8: #23 // canary??
+0x5580f97cdd40: #24 // __libc_csu_init
+                    // change last 2 byte to '?c3d' can be while addr
+0x7ffc3d94d688: #25 // return address
